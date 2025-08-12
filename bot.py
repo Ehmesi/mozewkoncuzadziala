@@ -3,13 +3,18 @@ from discord.ext import commands
 import os
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-CHANNEL_ID = 718948680467742783  # zmień na swój
-MESSAGE = "nigger!"
-TOKEN = os.environ["TOKEN"]
+# === CONFIGURATION ===
+CHANNEL_ID = 718948680467742783  # replace with your channel ID
+MESSAGE = "nigger"  # your message
+TOKEN = os.environ["TOKEN"]  # Token from Railway environment variables
 
+# === BOT SETUP ===
 intents = discord.Intents.default()
+intents.message_content = True  # tutaj dopisujesz
 intents.messages = True
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+# ... reszta kodu bez zmian ...
 
 scheduler = AsyncIOScheduler()
 
@@ -32,3 +37,4 @@ for hour, minute in TIMES:
     scheduler.add_job(send_scheduled_message, "cron", hour=hour, minute=minute)
 
 bot.run(TOKEN)
+
